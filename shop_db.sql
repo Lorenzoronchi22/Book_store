@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 24, 2022 at 09:42 AM
+-- Generation Time: Nov 24, 2022 at 12:52 PM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.1
 
@@ -67,15 +67,16 @@ CREATE TABLE `orders` (
   `address` varchar(500) NOT NULL,
   `total_products` varchar(1000) NOT NULL,
   `total_price` int(100) NOT NULL,
-  `placed_on` varchar(50) NOT NULL
+  `placed_on` varchar(50) NOT NULL,
+  `payment_status` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `name`, `number`, `email`, `method`, `address`, `total_products`, `total_price`, `placed_on`) VALUES
-(1, 4, 'Lorenzo Ronchi', '1', 'lolloronchi98@gmail.com', 'paypal', 'flat no. 2, sfgr, Caino, Italia - 25070', ', Harry potter (1) ', 30, '23-Nov-2022');
+INSERT INTO `orders` (`id`, `user_id`, `name`, `number`, `email`, `method`, `address`, `total_products`, `total_price`, `placed_on`, `payment_status`) VALUES
+(3, 5, 'Giorgio', '1', 'giorgiorossi@gmail.com', 'paypal', 'flat no. 4, Via Brescia, Odolo, Italia - 52637', ', Harry potter (1) ', 30, '24-Nov-2022', 'pending');
 
 -- --------------------------------------------------------
 
@@ -116,8 +117,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `user_type`) VALUES
-(3, 'Lorenzo', 'lorron1998@libero.it', 'lollo1998', 'admin'),
-(4, 'Giorgio', 'giorgiorossi@gmail.com', 'giored', 'user');
+(5, 'Giorgio', 'giorgiorossi@gmail.com', '$2y$10$PQLGai0cF9gih/G8zLB7qeBKiTfJaNjDN1f2ltNuByx2AIYzPhQoO', 'user'),
+(6, 'Lorenzo Ronchi', 'lorron1998@libero.it', '$2y$10$oEQb4Iv99Yw6aPbpH9sXYunsRyswhAx7URtr5tOyNR1hCJH7avx06', 'admin'),
+(7, 'Contaminetor', 'contaminetor@gmail.com', '$2y$10$g.ffSN9f2KJacBYgICioNekPEDaptv5gEepc.lSyPesHKjOpb/LTm', 'user');
 
 --
 -- Indexes for dumped tables
@@ -161,7 +163,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `message`
@@ -173,7 +175,7 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -185,7 +187,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
