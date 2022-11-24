@@ -31,9 +31,11 @@ if(isset($_POST['submit'])){
             header('location:home.php');
 
          }
+      }else{
+         $message[] = 'Email o password non corrette!';
       }
    }else{
-      $message[] = 'Email o password non corrette!';
+      $message[] = 'ACCOUNT NON REGISTRATO! Per registrarti clicca su "Registrati ora"';
    }
 
 }

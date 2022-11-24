@@ -71,7 +71,7 @@ if(!isset($admin_id)){
             $number_of_orders = mysqli_num_rows($select_orders);
          ?>
          <h3><?php echo $number_of_orders; ?></h3>
-         <p>order placed</p>
+         <p>Ordini effettuati</p>
       </div>
 
       <div class="box">

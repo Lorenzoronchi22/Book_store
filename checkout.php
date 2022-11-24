@@ -18,7 +18,6 @@ if(isset($_POST['order_btn'])){
    $method = mysqli_real_escape_string($conn, $_POST['method']);
    $address = mysqli_real_escape_string($conn, 'flat no. '. $_POST['flat'].', '. $_POST['street'].', '. $_POST['city'].', '. $_POST['country'].' - '. $_POST['pin_code']);
    $placed_on = date('d-M-Y');
-
    $cart_total = 0;
    $cart_products[] = '';
 
@@ -41,7 +40,12 @@ if(isset($_POST['order_btn'])){
       if(mysqli_num_rows($order_query) > 0){
          $message[] = 'Ordine già effettuato!'; 
       }else{
-         mysqli_query($conn, "INSERT INTO `orders`(user_id, name, number, email, method, address, total_products, total_price, placed_on) VALUES('$user_id', '$name', '$number', '$email', '$method', '$address', '$total_products', '$cart_total', '$placed_on')") or die('query 3 failed');
+         if($method == "payment completed"){
+            $payment_status = "completed";
+         }else{
+            $payment_status = "pending";
+         }
+         mysqli_query($conn, "INSERT INTO `orders`(user_id, name, number, email, method, address, total_products, total_price, placed_on, payment_status) VALUES('$user_id', '$name', '$number', '$email', '$method', '$address', '$total_products', '$cart_total', '$placed_on', '$payment_status')") or die('query 3 failed');
          $message[] = 'Ordine è avvenuto con successo!';
          mysqli_query($conn, "DELETE FROM `cart` WHERE user_id = '$user_id'") or die('query failed');
       }
@@ -114,6 +118,7 @@ if(isset($_POST['order_btn'])){
          <div class="inputBox">
             <span>Metodo di pagamento :</span>
             <select name="method">
+               <option value="payment completed">Paga subito</option>
                <option value="credit card">Carta di credito</option>
                <option value="paypal">Paypal</option>
                <option value="paytm">Paytm</option>
