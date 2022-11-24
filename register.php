@@ -10,15 +10,16 @@ if(isset($_POST['submit'])){
    $cpass = mysqli_real_escape_string($conn, $_POST['cpassword']);
    $user_type = $_POST['user_type'];
 
-   $select_users = mysqli_query($conn, "SELECT * FROM `users` WHERE email = '$email' AND password = '$pass'") or die('query failed');
+   $select_users = mysqli_query($conn, "SELECT * FROM `users` WHERE email = '$email'") or die('query failed');
 
    if(mysqli_num_rows($select_users) > 0){
-      $message[] = 'ATTENZIONE! Utente già esistente!';
+      $message[] = 'ATTENZIONE! Utente già esistente! Accedi al tuo profilo cliccando su "Accedi ora"';
    }else{
       if($pass != $cpass){
          $message[] = 'ATTENZIONE! Le due password devono coincidere!';
       }else{
-         mysqli_query($conn, "INSERT INTO `users`(name, email, password, user_type) VALUES('$name', '$email', '$cpass', '$user_type')") or die('query failed');
+         $pswhash = password_hash($cpass, PASSWORD_DEFAULT);
+         mysqli_query($conn, "INSERT INTO `users`(name, email, password, user_type) VALUES('$name', '$email', '$pswhash', '$user_type')") or die('query failed');
          $message[] = 'Registrazione avvenuta con successo!';
          header('location:login.php');
       }
